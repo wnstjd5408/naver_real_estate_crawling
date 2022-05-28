@@ -1,8 +1,6 @@
 # naver_real_estate_crawling
 
-<<<<<<< HEAD
-aaaa
-=======
+
 
 ## 2-1. Git Workflow
 
