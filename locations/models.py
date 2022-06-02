@@ -32,6 +32,7 @@ class Apartment(models.Model):
     apt_link = models.URLField(max_length=500, null=True, blank=True)
     apt_regiseter = models.DateTimeField(null=True)
     apt_change_price = models.BigIntegerField(null=True)
+    location_id = models.name = models.ForeignKey(Location, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return str(self.id)
