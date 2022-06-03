@@ -4,4 +4,6 @@ from .views import *
 
 app_name = "location"
 
-urlpatterns = []
+urlpatterns = [
+    path("", LocationListView.as_view(), name="idx"),
+]

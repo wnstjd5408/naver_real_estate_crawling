@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap5 %}
+<div class="container">
+{% if locationlist %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>위치</th>
+        <th>전체갯수</th>
+      </tr>
+    </thead>
+    <tbody>
+
+            {% for location in locationlist %}
+            <tr>
+                <td>{{location.id}}</td>
+                <td><a href="{% url 'location:detail' location.id %}">{{location.location_name}}</a></td>
+                <td>{{location.count}}</td>
+            </tr>
+            {% endfor %}
+
+    </tbody>
+  </table>
+{% else %}
+  <p>부동산 데이터가 없습니다</p>
+{% endif %}
+</div>
+{% endblock %}

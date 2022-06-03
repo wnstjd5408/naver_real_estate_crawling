@@ -13,6 +13,11 @@ class Location(models.Model):
     def __str__(self) -> str:
         return str(self.id)
 
+    class Meta:
+        verbose_name = "위치"
+        verbose_name_plural = f"{verbose_name} 목록"
+        ordering = ["-id"]
+
 
 class Apartment(models.Model):
     id = models.AutoField(primary_key=True)
@@ -32,7 +37,12 @@ class Apartment(models.Model):
     apt_link = models.URLField(max_length=500, null=True, blank=True)
     apt_regiseter = models.DateTimeField(null=True)
     apt_change_price = models.BigIntegerField(null=True)
-    location_id = models.ForeignKey(Location, null=True, blank=True, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return str(self.id)
+        return "%s %s %s" % (str(self.id), self.apt_name, self.apt_dong)
+
+    class Meta:
+        verbose_name = "아파트"
+        verbose_name_plural = f"{verbose_name} 목록"
+        ordering = ["-id"]
