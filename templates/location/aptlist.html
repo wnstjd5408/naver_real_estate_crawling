@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <a href="{% url 'location:idx' %}" class=" col-auto text-center "><button class="btn btn-lg btn-outline-primary m-3">이전</button></a>
+</div>
+
+<h2 class="text-center">{{location.0.location_name}}</h2>
+    <div class="container my-3">
+    {% if aptlist %}
+        {% for apt in aptlist %}
+        <div class="">
+            <div>
+                <span>{{apt.apt_name}} {{apt.apt_dong}}</span>
+            </div>
+            <div>
+                <span>{{apt.apt_price}} 원</span>
+            </div>
+            <div>
+                <span>{{apt.apt_confirm}} {{apt.apt_confirm_date}}</span>
+            </div>            
+        </div>
+
+        {% endfor %}
+    {% else %}
+        <p>아파트가 매물이 없습니다</p>
+    {% endif %}
+</div>
+{% endblock %}
