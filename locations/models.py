@@ -35,7 +35,7 @@ class Apartment(models.Model):
     apt_confirm = models.CharField(max_length=50)
     apt_confirm_date = models.DateField()
     apt_link = models.URLField(max_length=500, null=True, blank=True)
-    apt_regiseter = models.DateTimeField(null=True)
+    apt_register = models.DateTimeField(null=True)
     apt_change_price = models.BigIntegerField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
