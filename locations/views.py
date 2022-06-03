@@ -1,4 +1,5 @@
 from django.views.generic import *
+from django.views.generic.list import MultipleObjectMixin
 
 from .models import Apartment, Location
 
@@ -14,7 +15,7 @@ class LocationListView(ListView):
         return Location.objects.order_by("id")
 
 
-class LocationDetailView(DetailView):
+class LocationDetailView(MultipleObjectMixin, DetailView):
 
     template_name = "location/aptlist.html"
     context_object_name = "aptlist"
@@ -23,7 +24,7 @@ class LocationDetailView(DetailView):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        object_list = Apartment.objects.filter(location_id=self.get_object())
+        object_list = Apartment.objects.filter(location=self.get_object())
 
         context = super().get_context_data(object_list=object_list, **kwargs)
 

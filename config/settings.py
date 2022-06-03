@@ -80,8 +80,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "naver_real_estate",
+        "USER": os.environ.get("DB_USER", "root"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", None),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("DB_PORT", 3306),
+        "OPTIONS": {"charset": "utf8mb4"},
     }
 }
 
@@ -103,7 +108,10 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
+# 로그인 성공후 이동하는 URL
+LOGIN_REDIRECT_URL = "/"
+# 로그아웃시 이동하는 URL
+LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
