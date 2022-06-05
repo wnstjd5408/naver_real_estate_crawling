@@ -8,17 +8,20 @@
     <div class="container my-3">
     {% if aptlist %}
         {% for apt in aptlist %}
-        <div class="text-center">
+        <div class="list-group list-group-flush border-bottom scrollarea ">
+            <a href="{% url 'location:aptdetail' apt.id %}"class="list-group-item list-group-item-action py-3 lh-sm">
             <div>
-                <a href="{% url 'location:aptdetail' apt.id %}"><span>{{apt.apt_name}} {{apt.apt_dong}}</span>
-            <div>
-                <span>{{apt.apt_price}} 원</span>
+                    <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
             </div>
-            <div>
-                <span>{{apt.apt_confirm}} {{apt.apt_confirm_date}}</span>
-            </div>            
+            <div class="list-group-item">
+                <span><strong class="mb-1">{{apt.apt_transaction_type}} :</strong> {{apt.apt_price}} 원</span>
+            </div>
+            <div class="list-group-item">
+                <span><strong class="mb-1">{{apt.apt_confirm}} </strong> {{apt.apt_confirm_date}}</span>
+            </div>
+            </a>
+            
         </div>
-
         {% endfor %}
     {% else %}
         <p>아파트가 매물이 없습니다</p>
