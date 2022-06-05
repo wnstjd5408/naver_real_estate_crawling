@@ -8,10 +8,9 @@
     <div class="container my-3">
     {% if aptlist %}
         {% for apt in aptlist %}
-        <div class="">
+        <div class="text-center">
             <div>
-                <span>{{apt.apt_name}} {{apt.apt_dong}}</span>
-            </div>
+                <a href="{% url 'location:aptdetail' apt.id %}"><span>{{apt.apt_name}} {{apt.apt_dong}}</span>
             <div>
                 <span>{{apt.apt_price}} 원</span>
             </div>
