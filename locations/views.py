@@ -30,3 +30,9 @@ class LocationDetailView(MultipleObjectMixin, DetailView):
 
         context["location"] = Location.objects.filter(id=self.kwargs["pk"])
         return context
+
+
+class ApartmentDetailView(DetailView):
+    model = Apartment
+    template_name = "location/aptdetail.html"
+    context_object_name = "apartment"

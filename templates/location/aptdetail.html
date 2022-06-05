@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+
+<main>
+  <div class="container my-3">
+        <div class="row">
+            <div class="col-5">
+                <h3><strong>{{apartment.apt_name}}({{apartment.apt_category}})</strong></h3>
+                
+            </div>
+            <div class="col-7 text-right">
+                <h4><strong class="mb-1">확인날짜 : </strong>{{apartment.apt_confirm_date}}</h4>
+            </div>
+        </div>
+        <div class ="row">
+            <div class="col-5 my-1">
+                <strong class="mb-1">{{apartment.apt_transaction_type}}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 my-1">
+                <strong class="mb-1">평수 : </strong><span>{{apartment.apt_flat}}/{{apartment.apt_real_flat}}</span>
+            </div>
+            <div class="col-3">
+                <strong class="mb-1">높이 : </strong><span>{{apartment.apt_height}}</span>
+            </div>
+            <div class="col-2">
+                <strong class="mb-1">방향 : </strong><span>{{apartment.apt_wind}}</span>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-4 my-1">
+                <h3 class="text-right"><Strong>금액 :</Strong> </h3>
+            </div>
+            <div class="col-8">
+                <h3 class="text-center"><strong class="mb-3">{{apartment.apt_price}}</strong></h2>
+        
+            </div>
+        </div>
+        <div class="m-2 h-30">
+            {{apartment.apt_comment}}
+        </div>
+        <div class="m-2 h-30">
+            {{apartment.apt_feature}}
+        </div>
+
+        <div class="text-center">
+            <h4><a href="{{apartment.apt_link}}">네이버링크</a></h4>
+        </div>
+
+
+    </div>
+</main>
+
+{% endblock content %}
