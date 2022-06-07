@@ -66,6 +66,7 @@ class User(AbstractBaseUser):
 
 
 class Basket(models.Model):
+    id = models.AutoField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)
     uIDX = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="회원", null=True)
     aIDX = models.ForeignKey(Apartment, on_delete=models.CASCADE, verbose_name="아파트", null=True)
@@ -75,4 +76,4 @@ class Basket(models.Model):
         verbose_name_plural = f"{verbose_name} 목록"
 
     def __str__(self):
-        return str(self.uIDX) + "의 장바구니에서 " + str(self.fIDX)
+        return str(self.uIDX) + "의 장바구니에서 " + str(self.aIDX)
