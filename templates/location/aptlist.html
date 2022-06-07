@@ -9,7 +9,7 @@
     {% if aptlist %}
         {% for apt in aptlist %}
         <div class="list-group list-group-flush border-bottom scrollarea ">
-            <a href="{% url 'location:aptdetail' apt.id %}"class="list-group-item list-group-item-action py-3 lh-sm">
+            <a href="{{apt.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
             <div>
                     <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
             </div>

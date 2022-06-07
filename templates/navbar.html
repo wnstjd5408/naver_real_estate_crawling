@@ -13,7 +13,7 @@
             <a class="nav-link text-light" href="javascript:void(0);" onclick="confirmLogout()">{{user.name}}(로그아웃)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">회원정보</a>
+            <a class="nav-link text-light" href="{% url 'accounts:balist' %}">장바구니</a>
           </li>
 
           {% else %}

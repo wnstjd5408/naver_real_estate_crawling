@@ -1,7 +1,5 @@
-from turtle import Turtle
-
 from django.db import models
-from pyexpat import model
+from django.urls import reverse
 
 
 # Create your models here.
@@ -38,6 +36,9 @@ class Apartment(models.Model):
     apt_register = models.DateTimeField(null=True)
     apt_change_price = models.BigIntegerField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("location:aptdetail", kwargs={"pk": self.id})
 
     def __str__(self) -> str:
         return "%s %s %s" % (str(self.id), self.apt_name, self.apt_dong)

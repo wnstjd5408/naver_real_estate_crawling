@@ -1,9 +1,7 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    PermissionsMixin,
-    BaseUserManager,
-)
+from locations.models import Apartment
 
 
 class UserManager(BaseUserManager):
@@ -15,7 +13,7 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
             # self.normalize_email? - >email을 정규화
             # -> @ 뒤에 값을 대소문자 구분 x로 만듦으로서 다중 가입 방지
-            **extra_fields
+            **extra_fields,
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -65,3 +63,17 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Basket(models.Model):
+    id = models.AutoField(primary_key=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    uIDX = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="회원", null=True)
+    aIDX = models.ForeignKey(Apartment, on_delete=models.CASCADE, verbose_name="아파트", null=True)
+
+    class Meta:
+        verbose_name = "장바구니"
+        verbose_name_plural = f"{verbose_name} 목록"
+
+    def __str__(self):
+        return str(self.uIDX) + "의 장바구니에서 " + str(self.aIDX)

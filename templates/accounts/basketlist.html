@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+ {% block content %}
+
+<main>
+<h2>장바구니 디테일</h2>
+{% for b in ba %}
+    <p>{{b.id}}</p>
+    <p>{{b.uIDX}}</p>
+{% endfor %}
+
+
+</main>
+
+
+{% endblock %}

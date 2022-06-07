@@ -1,4 +1,8 @@
+from accounts.forms import BasketForm
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import *
+from django.views.generic.edit import FormMixin
 from django.views.generic.list import MultipleObjectMixin
 
 from .models import Apartment, Location
@@ -32,7 +36,27 @@ class LocationDetailView(MultipleObjectMixin, DetailView):
         return context
 
 
-class ApartmentDetailView(DetailView):
+class ApartmentDetailView(FormMixin, DetailView):
     model = Apartment
     template_name = "location/aptdetail.html"
     context_object_name = "apartment"
+    form_class = BasketForm
+
+    def get_success_url(self):
+        return reverse("location:aptdetail", kwargs={"pk": self.object.pk})
+
+    def form_valid(self, form):
+        bookmark = form.save(commit=False)
+        bookmark.aIDX = get_object_or_404(Apartment, pk=self.object.pk)
+        bookmark.uIDX = self.request.user
+        bookmark.save()
+        return super(ApartmentDetailView, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
