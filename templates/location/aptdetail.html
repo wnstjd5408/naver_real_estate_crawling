@@ -7,9 +7,20 @@
                 <h3><strong>{{apartment.apt_name}}({{apartment.apt_category}})</strong></h3>
                 
             </div>
-            <div class="col-7 text-right">
+            <div class="col-5 text-right">
                 <h4><strong class="mb-1">확인날짜 : </strong>{{apartment.apt_confirm_date}}</h4>
             </div>
+            {% if user.is_authenticated  %}
+
+            <div class="col-2 text-right">
+                <form method="post" action="{{apt.get_absolute_url}}" class="post-form my-3">
+                    {% csrf_token %}
+                    
+                    <input type="submit" value="즐겨찾기 추가">
+                </form>
+            </div>
+
+            {% endif %}
         </div>
         <div class ="row">
             <div class="col-5 my-1">
@@ -50,5 +61,15 @@
 
     </div>
 </main>
+<script type="text/javascript">
+    function bookmark(){
+        if(!confirm("즐겨찾기에 추가하시겠습니까?")){
+
+        }
+        else{
+            action="{{apt.get_absolute_url}}"
+        }
+    }
+</script>
 
 {% endblock content %}
