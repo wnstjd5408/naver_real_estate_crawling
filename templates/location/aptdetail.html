@@ -13,7 +13,7 @@
             {% if user.is_authenticated  %}
 
             <div class="col-2 text-right">
-                <form method="post" action="{{apt.get_absolute_url}}" class="post-form my-3">
+                <form method="post" action="{{apt.get_absolute_url}}" onsubmit="bookmark()" class="post-form my-3">
                     {% csrf_token %}
                     
                     <input type="submit" value="즐겨찾기 추가">
@@ -63,11 +63,11 @@
 </main>
 <script type="text/javascript">
     function bookmark(){
-        if(!confirm("즐겨찾기에 추가하시겠습니까?")){
-
+        if(confirm("즐겨찾기에 추가하시겠습니까?")){
+            return true;
         }
         else{
-            action="{{apt.get_absolute_url}}"
+            return false;
         }
     }
 </script>
