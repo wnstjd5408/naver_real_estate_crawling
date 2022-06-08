@@ -2,12 +2,93 @@
  {% block content %}
 
 <main>
-<h2>장바구니 디테일</h2>
-{% for b in ba %}
-    <p>{{b.id}}</p>
-    <p>{{b.uIDX}}</p>
-{% endfor %}
+    <div class="row">
+        <h2 class="col-4 text-center">장바구니 디테일</h2>
+        <canvas class="col-8 " id="myChart" width="500" height="500"></canvas>
+    </div>
+<div class="container my-3">
+    {% if ba %}
+        {% for b in ba %}
+        <div class="list-group list-group-flush border-bottom scrollarea ">
+            <a href="{{b.aIDX.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
+            <div class="list-group-item">
+                    <strong class="mb-3">{{b.aIDX.apt_name}} {{b.aIDX.apt_dong}}</strong>
+            </div>
+            <div class="list-group-item">
+                <span><strong class="mb-1">{{b.aIDX.apt_transaction_type}} :</strong> {{b.aIDX.apt_price}} 원</span>
+            </div>
+            <div class="list-group-item">
+                <span><strong class="mb-1">{{b.aIDX.apt_confirm}} </strong> {{b.aIDX.apt_confirm_date}}</span>
+            </div>
+            </a>
+        </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">장바구니가 제품이 없습니다</p>
+    {% endif %}
+</div>
 
+{%block scripts%}
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const name = '{{name}}';
+const price = '{{price}}';
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        //X축
+        labels: [
+        {% for na in name %}
+            "{{ na }}",
+        {% endfor %}
+        ],
+        datasets: [{
+            //차트제목
+            label: '부동산',
+            data: [
+            {% for pr in price %}
+                "{{ pr }}",
+            {% endfor %}
+            ],//x축 label에 대응되는 데이터 값
+            backgroundColor: [
+            //색상
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+            //경계선색상
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: false,
+
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text:  '장바구니에 담은 아파트 가격 비교'
+            }
+        }
+
+    }
+});
+</script>
+{%endblock scripts%}
 
 </main>
 

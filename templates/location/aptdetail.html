@@ -7,35 +7,37 @@
                 <h3><strong>{{apartment.apt_name}}({{apartment.apt_category}})</strong></h3>
                 
             </div>
+            
             <div class="col-5 text-right">
                 <h4><strong class="mb-1">확인날짜 : </strong>{{apartment.apt_confirm_date}}</h4>
             </div>
             {% if user.is_authenticated  %}
 
             <div class="col-2 text-right">
-                <form method="post" action="{{apt.get_absolute_url}}" onsubmit="bookmark()" class="post-form my-3">
+                <form method="post" action="{{apt.get_absolute_url}}" onsubmit="bookmark()" >
                     {% csrf_token %}
-                    
-                    <input type="submit" value="즐겨찾기 추가">
+          
+                    <input type="submit" value="즐겨찾기 추가" class="btn btn-outline-primary btn-sm">
                 </form>
             </div>
 
             {% endif %}
         </div>
+        <hr>
         <div class ="row">
             <div class="col-5 my-1">
-                <strong class="mb-1">{{apartment.apt_transaction_type}}</strong>
+                <h4><strong class="mb-1">{{apartment.apt_transaction_type}}</strong></h4>
             </div>
         </div>
         <div class="row">
             <div class="col-4 my-1">
-                <strong class="mb-1">평수 : </strong><span>{{apartment.apt_flat}}/{{apartment.apt_real_flat}}</span>
+                <span><strong class="mb-1">평수 : </strong>{{apartment.apt_flat}}/{{apartment.apt_real_flat}}</span>
             </div>
             <div class="col-3">
-                <strong class="mb-1">높이 : </strong><span>{{apartment.apt_height}}</span>
+                <span><strong class="mb-1">높이 : </strong>{{apartment.apt_height}}</span>
             </div>
             <div class="col-2">
-                <strong class="mb-1">방향 : </strong><span>{{apartment.apt_wind}}</span>
+                <span><strong class="mb-1">방향 : </strong>{{apartment.apt_wind}}</span>
             </div>
         </div>
         <div class="row my-3">
@@ -70,6 +72,8 @@
             return false;
         }
     }
+
+
 </script>
 
 {% endblock content %}

@@ -68,7 +68,7 @@ class User(AbstractBaseUser):
 class Basket(models.Model):
     id = models.AutoField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    uIDX = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="회원", null=True)
+    uIDX = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE, verbose_name="회원", null=True)
     aIDX = models.ForeignKey(Apartment, on_delete=models.CASCADE, verbose_name="아파트", null=True)
 
     class Meta:

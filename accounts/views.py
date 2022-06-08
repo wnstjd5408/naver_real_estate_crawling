@@ -19,9 +19,26 @@ class BasketListView(ListView):
     template_name = "accounts/basketlist.html"
     context_object_name = "ba"
 
-    def get_queryset(self):
+    def get_context_data(self, **kwarg):
+        label = []
+        price = []
         user = self.request.user
-        return Basket.objects.filter(uIDX=user)
+        queryset = Basket.objects.filter(uIDX=user).select_related("aIDX")
+
+        context = super().get_context_data(queryset=queryset)
+        for ba in queryset:
+            label.append(ba.aIDX.apt_name)
+            price.append(ba.aIDX.apt_change_price)
+            print(ba.aIDX.apt_change_price)
+            print(ba.aIDX.apt_name)
+        context["name"] = label
+        context["price"] = price
+
+        return context
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Basket.objects.filter(uIDX=user).select_related("aIDX")
 
 
 # @method_decorator(login_required, name="dispatch")
