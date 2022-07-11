@@ -46,4 +46,4 @@ class Apartment(models.Model):
     class Meta:
         verbose_name = "아파트"
         verbose_name_plural = f"{verbose_name} 목록"
-        ordering = ["id"]
+        ordering = ["apt_name", "-apt_confirm_date"]

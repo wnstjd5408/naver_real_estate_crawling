@@ -25,7 +25,7 @@ class LocationDetailView(MultipleObjectMixin, DetailView):
     context_object_name = "aptlist"
 
     model = Location
-    paginate_by = 12
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         object_list = Apartment.objects.filter(location=self.get_object())
