@@ -1,5 +1,6 @@
 from accounts.forms import BasketForm
-from django.shortcuts import get_object_or_404, redirect
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import *
 from django.views.generic.edit import FormMixin
@@ -17,6 +18,22 @@ class LocationListView(ListView):
 
     def get_queryset(self):
         return Location.objects.order_by("id")
+
+
+class ApartmentSearchList(ListView):
+    model = Apartment
+    context_object_name = "aptlist"
+    template_name: str = "location/aptSearchList.html"
+    paginate_by = 20
+
+    def get_queryset(self):
+        val = self.request.GET.get("apt_name")
+        location = self.request.GET.get("location")
+        if val:
+            queryset = Apartment.objects.filter(Q(apt_name__contains=val), location=location)
+        else:
+            queryset = Apartment.objects.filter(location=location)
+        return queryset
 
 
 class LocationDetailView(MultipleObjectMixin, DetailView):
