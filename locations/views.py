@@ -1,3 +1,5 @@
+from typing import List
+
 from accounts.forms import BasketForm
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -27,10 +29,10 @@ class ApartmentSearchList(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        val = self.request.GET.get("apt_name")
-        location = self.request.GET.get("location")
+        val = self.request.GET.get("search", "")
+        location = self.request.GET.get("location", "")
         if val:
-            queryset = Apartment.objects.filter(Q(apt_name__contains=val), location=location)
+            queryset = Apartment.objects.filter(Q(apt_name__contains=val), location=location).distinct()
         else:
             queryset = Apartment.objects.filter(location=location)
         return queryset

@@ -6,39 +6,40 @@
         <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
       </svg></button></a>
       <div class="col-sm-offset-2 col-sm-4">
-        <div class="col-sm-offset-2 col-sm-4">
-            <h2>검색창</h2>
-            <form method="get" action='{% url "location:apt_search" %}'>
-                <input class="form-control" type="text" placeholder="Search" name="apt_name" >
-                <input type="hidden" name="location" value="{{aptlist.0.location}}">
-            <button class="btn btn-primary my-2" type="submit">검색</button>
-        </div>
-</div>
+        <h2>검색창</h2>
+        <form method="get" action="{% url 'location:apt_search' %}">
+            <input class="form-control" type="text" placeholder="아파트 이름을 입력해주세요" name="search" value="{{search|default_if_none:'' }} ">
+            <input type="hidden" name="location" value="{{aptlist.0.location|default_if_none:'' }}">
+        <button class="btn btn-primary my-2" type="submit">검색</button>
+    </div>
 
 </div>
 
-<h2 class="text-center">{{location.0.location_name}}</h2>
+<h2 class="text-center">{{aptlist.0.location}}</h2>
     <div class="container my-3">
-    {% if aptlist %}
-        {% for apt in aptlist %}
-        <div class="list-group list-group-flush border-bottom scrollarea ">
-            <a href="{{apt.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="list-group-item"
-                    <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
+        <div class="row">
+            {% if aptlist %}
+                {% for apt in aptlist %}
+                <div class="col-3 col-md-3 text-center">
+                    <div class="list-group list-group-flush border-bottom scrollarea ">
+                        <a href="{{apt.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="list-group-item"
+                                <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
+                        </div>
+                        <div class="list-group-item">
+                            <span><strong class="mb-1">{{apt.apt_transaction_type}} :</strong> {{apt.apt_price}} 원</span>
+                        </div>
+                        <div class="list-group-item">
+                            <span><strong class="mb-1">{{apt.apt_confirm}} </strong> {{apt.apt_confirm_date}}</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>아파트가 매물이 없습니다</p>
+            {% endif %}
             </div>
-            <div class="list-group-item">
-                <span><strong class="mb-1">{{apt.apt_transaction_type}} :</strong> {{apt.apt_price}} 원</span>
-            </div>
-            <div class="list-group-item">
-                <span><strong class="mb-1">{{apt.apt_confirm}} </strong> {{apt.apt_confirm_date}}</span>
-            </div>
-            </a>
-            
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>아파트가 매물이 없습니다</p>
-    {% endif %}
 </div>
 <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}

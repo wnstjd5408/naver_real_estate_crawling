@@ -7,35 +7,38 @@
       </svg></button></a>
       <div class="col-sm-offset-2 col-sm-4">
         <h2>검색창</h2>
-        <form method="get" action='{% url "location:apt_search" %}'>
-            <input class="form-control" type="text" placeholder="Search" name="apt_name" >
-            <input type="hidden" name="location" value="{{aptlist.0.location}}">
+        <form method="get" action="{% url 'location:apt_search' %}">
+            <input class="form-control" type="text" placeholder="아파트 이름을 입력해주세요" name="search" value="{{search|default_if_none:'' }} ">
+            <input type="hidden" name="location" value="{{location.0.id}}">
         <button class="btn btn-primary my-2" type="submit">검색</button>
     </div>
 </div>
 
 <h2 class="text-center">{{location.0.location_name}}</h2>
     <div class="container my-3">
+    <div class="row">
     {% if aptlist %}
         {% for apt in aptlist %}
-        <div class="list-group list-group-flush border-bottom scrollarea ">
-            <a href="{{apt.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="list-group-item"
-                    <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
+        <div class="col-3 col-md-3 text-center">
+            <div class="list-group list-group-flush border-bottom scrollarea ">
+                <a href="{{apt.get_absolute_url}}"class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="list-group-item"
+                        <strong class="mb-3">{{apt.apt_name}} {{apt.apt_dong}}</strong>
+                </div>
+                <div class="list-group-item">
+                    <span><strong class="mb-1">{{apt.apt_transaction_type}} :</strong> {{apt.apt_price}} 원</span>
+                </div>
+                <div class="list-group-item">
+                    <span><strong class="mb-1">{{apt.apt_confirm}} </strong> {{apt.apt_confirm_date}}</span>
+                </div>
+                </a>
             </div>
-            <div class="list-group-item">
-                <span><strong class="mb-1">{{apt.apt_transaction_type}} :</strong> {{apt.apt_price}} 원</span>
-            </div>
-            <div class="list-group-item">
-                <span><strong class="mb-1">{{apt.apt_confirm}} </strong> {{apt.apt_confirm_date}}</span>
-            </div>
-            </a>
-            
         </div>
         {% endfor %}
     {% else %}
         <p>아파트가 매물이 없습니다</p>
     {% endif %}
+    </div>
 </div>
 <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}
