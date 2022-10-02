@@ -1,6 +1,7 @@
 from typing import List
 
 from accounts.forms import BasketForm
+from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -29,13 +30,31 @@ class ApartmentSearchList(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        val = self.request.GET.get("search", "")
+        search_keyword = self.request.GET.get("search", "")
+        search_type = self.request.GET.get("type", "")
         location = self.request.GET.get("location", "")
-        if val:
-            queryset = Apartment.objects.filter(Q(apt_name__contains=val), location=location).distinct()
+        search_list = Apartment.objects.filter(location=location).order_by("-id")
+        if search_keyword:
+            if len(search_keyword) > 0:
+                if search_type == "title":
+                    queryset = Apartment.objects.filter(Q(apt_name__contains=search_keyword), location=location).distinct()
+                elif search_type == "apt_transaction_type":
+                    queryset = Apartment.objects.filter(Q(apt_transaction_type__contains=search_keyword), location=location).distinct()
+
+                return queryset
         else:
-            queryset = Apartment.objects.filter(location=location)
-        return queryset
+            messages.error(self.request, "검색어는 1글자 이상 입력해주세요.")
+        return search_list
+
+    def get_context_data(self, **kwargs):
+        search_keyword = self.request.GET.get("search", "")
+        search_type = self.request.GET.get("type", "")
+        context = super().get_context_data(**kwargs)
+        if len(search_keyword) > 0:
+            context["search"] = search_keyword
+        context["type"] = search_type
+
+        return context
 
 
 class LocationDetailView(MultipleObjectMixin, DetailView):

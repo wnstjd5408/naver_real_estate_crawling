@@ -8,6 +8,12 @@
       <div class="col-sm-offset-2 col-sm-4">
         <h2>검색창</h2>
         <form method="get" action="{% url 'location:apt_search' %}">
+            <label for ="type">Search Types</label>
+            <select id="type" name="type" class="form-select form-select-sm my-1">
+                <option selected>선택해주세요</option>
+                <option value="title">제목</option>
+                <option value="apt_transaction_type">타입</option>
+            </select>
             <input class="form-control" type="text" placeholder="아파트 이름을 입력해주세요" name="search" value="{{search|default_if_none:'' }} ">
             <input type="hidden" name="location" value="{{location.0.id}}">
         <button class="btn btn-primary my-2" type="submit">검색</button>
