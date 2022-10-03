@@ -49,11 +49,12 @@ class ApartmentSearchList(ListView):
     def get_context_data(self, **kwargs):
         search_keyword = self.request.GET.get("search", "")
         search_type = self.request.GET.get("type", "")
+        location = self.request.GET.get("location", "")
         context = super().get_context_data(**kwargs)
         if len(search_keyword) > 0:
             context["search"] = search_keyword
         context["type"] = search_type
-
+        context["location"] = location
         return context
 
 
