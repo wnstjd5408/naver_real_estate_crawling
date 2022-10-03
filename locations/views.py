@@ -27,7 +27,7 @@ class ApartmentSearchList(ListView):
     model = Apartment
     context_object_name = "aptlist"
     template_name: str = "location/aptSearchList.html"
-    paginate_by = 20
+    paginate_by = 40
 
     def get_queryset(self):
         search_keyword = self.request.GET.get("search", "")
@@ -49,11 +49,12 @@ class ApartmentSearchList(ListView):
     def get_context_data(self, **kwargs):
         search_keyword = self.request.GET.get("search", "")
         search_type = self.request.GET.get("type", "")
+        location = self.request.GET.get("location", "")
         context = super().get_context_data(**kwargs)
         if len(search_keyword) > 0:
             context["search"] = search_keyword
         context["type"] = search_type
-
+        context["location"] = location
         return context
 
 
@@ -63,7 +64,7 @@ class LocationDetailView(MultipleObjectMixin, DetailView):
     context_object_name = "aptlist"
 
     model = Location
-    paginate_by = 20
+    paginate_by = 40
 
     def get_context_data(self, **kwargs):
         object_list = Apartment.objects.filter(location=self.get_object())
