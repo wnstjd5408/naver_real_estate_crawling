@@ -15,7 +15,7 @@
                 <option value="apt_transaction_type">타입</option>
             </select>
             <input class="form-control" type="text" placeholder="아파트 이름을 입력해주세요" name="search" value="{{search|default_if_none:'' }} ">
-            <input type="hidden" name="location" value="{{aptlist.0.location|default_if_none:'' }}">
+            <input type="hidden" name="location" value="{{location|default_if_none:'' }}">
         <button class="btn btn-primary my-2" type="submit">검색</button>
     </div>
 
